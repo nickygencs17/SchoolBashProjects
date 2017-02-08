@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red64\green11\blue217;\red193\green101\blue28;\red200\green20\blue201;
+\red180\green36\blue25;\red46\green174\blue187;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs22 \cf2 \CocoaLigature0 #!/bin/bash\cf0 \
+\cf2 #NICHOLAS GENCO\cf0 \
+\cf3 for\cf0  i\cf3 ;\cf0  \cf3 do\cf0 \
+\
+\cf3 if\cf0  \cf3 [\cf0  \cf3 -r\cf0  \cf3 "\cf4 $i\cf3 "\cf0  \cf3 ]\cf2  #TESTING IF THE FILE IS READABLE OR EXISTS'\cf0 \
+\cf3 then\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf4 $i\cf3 "\cf0 \
+\cf3 else\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf4 $i\cf3 "\cf5   \cf3 "\cf5 this file does not exist or is not readable\cf3 "\cf5  \cf3 >\cf0 /dev/stderr\
+\
+\cf3 fi\cf2  #END IF STAEMENTS\cf0 \
+\cf3 done\cf0 \
+\
+\cf3 if\cf0  \cf3 [\cf0  \cf3 "\cf4 $#\cf3 "\cf0  \cf3 -ge\cf0  \cf5 2\cf0  \cf3 ]\cf2  #TESTING IF ARGUMENTS ARE GREATER THEN TWO\cf0 \
+\cf3 then\cf0 \
+        \cf6 bool\cf0 =\cf3 true\cf0        \cf2         #SETTING BOOL TO TRUE\cf0 \
+        \cf6 y\cf0 =\cf4 $(\cf3 ls\cf4  -l \cf3 "\cf4 $1\cf3 "\cf4  \cf3 |\cf4  cut -d\cf3 "\cf5  \cf3 "\cf4  -f1)\cf2  #Y= FIRST FILE PERSMISIONS \cf0 \
+        \cf3 for\cf0  i\cf3 ;\cf0  \cf3 do\cf2        #FOR LOOP TO SEE IF ALL PERMISSIONS ARE EQUAL TO Y\cf0 \
+                \cf6 x\cf0 =\cf4 $(\cf3 ls\cf4  -l \cf3 "\cf4 $i\cf3 "\cf4  \cf3 |\cf4  cut -d\cf3 "\cf5  \cf3 "\cf4  -f1)\cf0 \
+                \cf3 if\cf0  \cf3 [\cf0  \cf3 "\cf4 $x\cf3 "\cf0  \cf3 !=\cf0  \cf3 "\cf4 $y\cf3 "\cf0  \cf3 ]\cf2  #TEST TO SEE IF X IS NOT EQUAL TO Y\cf0 \
+                \cf3 then\cf0 \
+                \cf6 bool\cf0 =\cf3 false\cf2  #IF Y IS NOT EQUAL TO X SET BOOL TO FALSE \cf0 \
+                \cf3 fi\cf0 \
+        \cf3 done\cf0 \
+\cf3 else\cf0 \
+\cf2  #ECHOING NOT ENOUGH ARGUMENTS IF THEY WERE LESS THEN 2\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf5 not enough arguments \cf3 "\cf0 \
+        \cf3 exit\cf0  \cf5 23\cf0 \
+\cf3 fi\cf0 \
+\
+\cf3 if\cf0  \cf3 [\cf0  \cf3 "\cf4 $bool\cf3 "\cf0  \cf3 =\cf0  \cf5 true\cf0  \cf3 ]\cf2  #IF BOOL IS TRUE ECHOS THEY ARE EQUAL, PERMISIONS  AND 0 EXIT CODE \cf0 \
+\cf3 then\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf5 these files are equal\cf3 "\cf5  \cf0 \
+        \cf3 echo\cf5  \cf3 "\cf4 $y\cf3 "\cf0 \
+        \cf3 exit\cf0  \cf5 0\cf0 \
+\cf3 else\cf2  #IF THEY ARE NOT EQUAL THIS DISPLAYS NON ZERO EXIT CODE, FILES, ERROR STAEMENT AND THEY'RE PERMISSIONS\cf0 \
+\
+        \cf3 echo\cf5  \cf3 "\cf5  there not equal\cf3 "\cf0 \
+        \cf3 for\cf0  i\cf3 ;\cf0  \cf3 do\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf4 $i\cf3 "\cf0 \
+        \cf6 x\cf0 =\cf4 $(\cf3 ls\cf4  -l \cf3 "\cf4 $i\cf3 "\cf4  \cf3 |\cf4  cut -d\cf3 "\cf5  \cf3 "\cf4  -f1)\cf0 \
+        \cf3 echo\cf5  \cf3 "\cf4 $x\cf3 "\cf0 \
+        \cf3 done\cf0 \
+        \cf3 exit\cf0  \cf5 230\cf0 \
+ \cf3 fi}

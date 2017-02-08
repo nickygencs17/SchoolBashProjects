@@ -1,0 +1,52 @@
+{\rtf1\ansi\ansicpg1252\cocoartf1265\cocoasubrtf190
+{\fonttbl\f0\fnil\fcharset0 Menlo-Regular;}
+{\colortbl;\red255\green255\blue255;\red64\green11\blue217;\red46\green174\blue187;\red180\green36\blue25;
+\red193\green101\blue28;\red200\green20\blue201;\red133\green0\blue2;\red224\green228\blue9;}
+\margl1440\margr1440\vieww10800\viewh8400\viewkind0
+\pard\tx560\tx1120\tx1680\tx2240\tx2800\tx3360\tx3920\tx4480\tx5040\tx5600\tx6160\tx6720\pardirnatural
+
+\f0\fs22 \cf2 \CocoaLigature0 #!/bin/bash\cf0 \
+\cf2 #Nicholas Genco\cf0 \
+\cf3 count\cf0 =\cf4 0\cf5 ;\cf2  #setting count to 0\cf0 \
+\cf3 longfile\cf0 =\cf5 "";\cf2  #setting longfile to empty string\cf0 \
+\
+\cf5 if\cf0  \cf5 [\cf0  \cf5 "\cf6 $#\cf5 "\cf0  \cf5 =\cf0  \cf4 "0"\cf0  \cf5 ];\cf2  #if no arguments echo not enough arguments and exit\cf0 \
+\cf5 then\cf0 \
+        \cf5 echo\cf4  \cf5 "\cf4 Not Enough Arguments\cf7 \cb8 :\cf4 \cb1  Please Enter 1 or More\cf5 "\cf4   \cf0 \
+        \cf5 echo\cf4  \cf5 "\cf4 567\cf5 "\cf0 \
+        \cf5 exit\cf0  \cf4 567\cf0 \
+\cf5 else\cf0 \
+\cf5 for\cf0  i\cf5 ;\cf0  \cf5 do\cf0 \
+        \cf5 if\cf0  \cf5 [\cf0  \cf5 -d\cf0  \cf5 "\cf6 $i\cf5 "\cf0  \cf5 ];\cf2  #Testing arguments to see if directory exists \cf0 \
+        \cf5 then\cf0 \
+                \cf5 if\cf0  \cf5 [\cf0  \cf5 -r\cf0  \cf5 "\cf6 $i\cf5 "\cf0  \cf5 ];\cf2  #checking if the directory is readable \cf0 \
+                        \cf5 then\cf0 \
+                        \cf5 for\cf0  j \cf5 in\cf0  \cf6 $i\cf0 /*\cf5 ;\cf0  \cf5 do\cf0 \
+                                \cf3 bn\cf0 =\cf6 $(basename \cf5 "\cf6 $\{j\}\cf5 "\cf6 )\cf5 ;\cf2  #setting bn to the string following the final '/'.\cf0 \
+                                        \cf5 if\cf0  \cf6 ((\cf0  \cf6 $\{#bn\}\cf0  \cf5 >\cf0  \cf6 $count\cf0  \cf6 ))\cf5 ;\cf2  #Testing if the number of characters in bn are greater then the count's int \cf0 \
+                                        \cf5 then\cf0 \
+                                                \cf3 count\cf0 =\cf6 $\{#bn\}\cf5 ;\cf2  #if bn is greater then count bn= new count \cf0 \
+                                                \cf3 longfile\cf0 =\cf6 $j\cf5 ;\cf2     #SETTING j = file path\cf0 \
+                                        \cf5 fi\cf0 \
+                        \cf5 done\cf0 \
+                \cf5 else\cf0 \
+                \cf5 echo\cf4  \cf5 "\cf4 Error\cf7 \cb8 :\cf4 \cb1  \cf5 ""\cf6 $i\cf5 "\cf4  \cf5 "\cf4 = Directory Not Accessible\cf5 "\cf4  \cf5 >\cf0 /dev/stderr\cf5 ;\cf2  #DIRECTORY IS NOT ACCESSIBLE TO STDERROR\cf0 \
+                \cf5 fi\cf0 \
+        \cf5 else\cf0 \
+        \cf5 echo\cf4  \cf5 "\cf4 Error\cf7 \cb8 :\cf4 \cb1  \cf5 ""\cf6 $i\cf5 "\cf4  \cf5 "\cf4 = Directory Does Not Exist\cf5 "\cf4  \cf5 >\cf0 /dev/stderr\cf5 ;\cf2  #directory does not exist to stderr\cf0 \
+\
+        \cf5 fi\cf0 \
+\
+\cf5 done\cf0 \
+\cf5 fi\cf0 \
+\cf5 if\cf0  \cf6 (($count\cf0  \cf5 >\cf0  \cf4 0\cf6 ))\cf0 \
+\cf5 then\cf0 \
+        \cf3 bn1\cf0 =\cf6 $(basename \cf5 "\cf6 $\{longfile\}\cf5 "\cf6 )\cf5 ;\cf2  #using basename to set bn1 to the string following the final '/'.\cf0 \
+        \cf5 echo\cf4  \cf5 "\cf4 Longest File\cf7 \cb8 :\cf4 \cb1  \cf5 ""\cf6 $bn1\cf5 "\cf0 \
+        \cf5 echo\cf4  \cf5 "\cf4 Number of Characters\cf7 \cb8 :\cf4 \cb1  \cf5 ""\cf6 $count\cf5 ";\cf2  #echoing the longest file and the name of the longest file \cf0 \
+        \cf5 exit\cf0  \cf4 0\cf0 \
+\cf5 else\cf0 \
+\cf5 echo\cf4  \cf5 "\cf4 Error\cf7 \cb8 :\cf4 \cb1  Longest file = '0'\cf5 "\cf0 \
+\cf5 echo\cf4  \cf5 "\cf4 1\cf5 ";\cf0 \
+\cf5 exit\cf0  \cf4 1\cf5 ;\cf0 \
+\cf5 fi}
